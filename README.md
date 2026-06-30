@@ -1,6 +1,6 @@
 # 📋 Daily Work Tracker
 
-**No description, website, or topics provided.**
+**A comprehensive desktop application for daily task management, work hour tracking, and AI-powered productivity analysis.**
 
 ---
 
@@ -9,6 +9,81 @@
 This repository contains the **Daily Work Tracker** application - a comprehensive desktop tool for professionals to manage daily tasks, track work hours, and generate AI-powered productivity reports.
 
 **Developer**: Abdelrhman Hamed
+
+---
+
+## 🏗️ System Architecture
+
+```mermaid
+graph TD
+    subgraph "User Interface Layer"
+        A[Main Application Window<br/>Tkinter GUI]
+        A1[Daily Work Tab]
+        A2[History Tab]
+        A3[Settings Tab]
+    end
+
+    subgraph "Business Logic Layer"
+        B[WorkTrackerApp Class]
+        B1[Task Management]
+        B2[Timer Engine]
+        B3[Data Persistence]
+        B4[Report Generator]
+        B5[Auto-Review Module]
+    end
+
+    subgraph "Data Storage Layer"
+        C[JSON Files]
+        C1[work_data.json<br/>Daily Entries]
+        C2[review_data.json<br/>Reviews]
+        C3[temp_data.json<br/>Session State]
+        C4[timer_state.json<br/>Timer Status]
+        C5[weekly_report.txt<br/>Reports]
+    end
+
+    subgraph "External Integration"
+        D[DeepSeek AI]
+        D1[Web Browser Integration]
+    end
+
+    A --> B
+    B --> C
+    B --> D
+
+    subgraph "Data Flow"
+        E[User Input] --> F[Task/Plan Operations]
+        F --> G[Timer Updates]
+        G --> H[Data Backup]
+        H --> I[Report Generation]
+        I --> J[AI Review]
+    end
+```
+
+---
+
+## 🚀 Features
+
+### Core Features
+- **📋 Task Management**: Add, complete, and delete tasks with real-time updates
+- **📝 Plan Points**: Track daily objectives and goals
+- **⏱️ Background Timer**: Timer continues running even when app is closed
+- **📊 History View**: Complete history of all completed tasks and sessions
+- **📈 Statistics**: View productivity metrics and trends
+- **📝 Daily Notes**: Keep notes for each day
+
+### Enhanced Features (v2.1)
+- **Background Timer**: Timer persists across app restarts
+- **Timer State Save**: Automatic saving of timer state
+- **Pause/Resume**: Control timer as needed
+- **Logout Function**: Safely end sessions with data preservation
+- **Auto-Save Notes**: Automatic saving of daily notes
+- **DeepSeek Integration**: AI-powered review of weekly reports
+
+### Additional Tools
+- **End of Day Review**: Comprehensive daily review with prompts
+- **Weekly Reports**: Generate detailed weekly summaries
+- **Data Backup**: Create backups of all data
+- **Data Management**: Clear or export data as needed
 
 ---
 
@@ -89,8 +164,8 @@ pip3 install pyperclip
 ### Step 5: Create the Application File
 
 1. Create a new file called `work_tracker.py`
-2. Copy the code from [work_tracker.py](work_tracker.py)
-3. Paste and save
+2. Copy the full application code into the file
+3. Save the file
 
 #### Quick Creation (Windows)
 ```powershell
@@ -193,9 +268,40 @@ X-GNOME-Autostart-enabled=true
 D:\Python Automation\WorkTracker\
 ├── work_tracker.py          # Main application
 ├── work_data.json           # Daily entries (auto-created)
+│   └── entries: [
+│       {
+│           "date": "2026-01-01",
+│           "tasks": [...],
+│           "plan_items": [...],
+│           "hours_worked": 8.5,
+│           "notes": "Daily notes"
+│       }
+│   ]
 ├── review_data.json         # Reviews (auto-created)
+│   └── reviews: [
+│       {
+│           "date": "2026-01-01",
+│           "entry": {...},
+│           "review_answers": "..."
+│       }
+│   ]
+├── temp_data.json           # Session state (auto-created)
+│   └── {
+│       "tasks": [...],
+│       "plan_items": [...],
+│       "login_time": "09:00",
+│       "notes": "...",
+│       "is_tracking": true,
+│       "elapsed_seconds": 3600
+│   }
+├── timer_state.json         # Timer state (auto-created)
+│   └── {
+│       "is_tracking": true,
+│       "start_time": "2026-01-01T09:00:00",
+│       "elapsed_seconds": 3600,
+│       "date": "2026-01-01"
+│   }
 ├── weekly_report.txt        # Reports (auto-created)
-├── temp_data.json           # Session (auto-created)
 └── backups\                 # Backups (auto-created)
     ├── backup_20260101_120000\
     ├── backup_20260102_120000\
@@ -229,29 +335,7 @@ D:\Python Automation\WorkTracker\
 | **Permission denied** | Run terminal as administrator |
 | **File not found** | Check you're in correct directory |
 | **Can't create folders** | Check write permissions |
-
----
-
-## 🚀 Quick Start Commands
-
-```bash
-# Windows
-cd "D:\Python Automation\WorkTracker"
-python work_tracker.py
-
-# Linux/macOS
-cd ~/WorkTracker
-python3 work_tracker.py
-
-# Install dependencies
-pip install pyperclip
-
-# Create backup (in app)
-Settings → Create Backup
-
-# Clear data (in app)
-Settings → Clear All Data
-```
+| **Timer not persisting** | Check timer_state.json creation |
 
 ---
 
@@ -291,6 +375,29 @@ pip install pyperclip
 
 ---
 
+## 🚀 Quick Start Commands
+
+```bash
+# Windows
+cd "D:\Python Automation\WorkTracker"
+python work_tracker.py
+
+# Linux/macOS
+cd ~/WorkTracker
+python3 work_tracker.py
+
+# Install dependencies
+pip install pyperclip
+
+# Create backup (in app)
+Settings → Create Backup
+
+# Clear data (in app)
+Settings → Clear All Data
+```
+
+---
+
 ## 🌐 Quick Links
 
 - **Repository**: [github.com/Abdelrhman2371999/Daily-Work-Tracker](https://github.com/Abdelrhman2371999/Daily-Work-Tracker)
@@ -301,9 +408,9 @@ pip install pyperclip
 
 ## 📞 Contact & Support
 
-<div class="contact-item"><i class="fas fa-envelope"></i><a href="mailto:abdelrhmanhamedmousaa@gmail.com">abdelrhmanhamedmousaa@gmail.com</a></div>
-<div class="contact-item"><i class="fab fa-linkedin"></i><a href="https://linkedin.com/in/abdelrhmanhamed" target="_blank">linkedin.com/in/abdelrhmanhamed</a></div>
-<div class="contact-item"><i class="fab fa-github"></i><a href="https://github.com/Abdelrhman2371999" target="_blank">github.com/Abdelrhman2371999</a></div>
+- **Email**: abdelrhmanhamedmousaa@gmail.com
+- **LinkedIn**: linkedin.com/in/abdelrhmanhamed
+- **GitHub**: github.com/Abdelrhman2371999
 
 ---
 
